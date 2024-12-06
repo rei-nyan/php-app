@@ -3,7 +3,8 @@
 ## 全般
 
 ### 以下のaタグのリンクを押下した際にedit.phpの$_GETにどんな値が格納されるか説明してください。
-
+　　$_GETには１２３、焼肉が格納されている
+todo_id=123、todo_content=焼肉
 
 
 ```html
@@ -11,47 +12,59 @@
 ```
 
 ### 以下のフォームの送信ボタンを押下した際にstore.phpの$_POSTにどんな値が格納されるか説明してください。
-
+$_POST = array(
+    'id' => '123',
+    'content' => '焼肉'
+);
+$_POST 配列はフォーム内で指定されたキー、入力値が格納される
 
 ```html
 <form action="store.php" method="post">
     <input type="text" name="id" value="123">
-		<textarea　name="content">焼肉</textarea>
+<textarea　name="content">焼肉</textarea>
     <button type="submit">送信</button>
 </form>
 ```
 
 ### `require_once()` は何のために記述しているか説明してください。
-
+require は、同じファイルでも何度も取り込む
+require_once は、既に取り込まれたファイルは2回目以降は取り込まない（1度だけ取り込む）
 
 ### `savePostedData($post)`は何をしているか説明してください。
-
+新しい Todo の作成または既存の Todo の更新を行う関数
 
 ### `header('location: ./index.php')`は何をしているか説明してください。
-
+./index.php ブラウザをリダイレクトしている
 
 ### `getRefererPath()`は何をしているか説明してください。
-
+/new.php や /edit.php などを抽出し、それを返す
 
 ### `connectPdo()` の返り値は何か、またこの記述は何をするための記述か説明してください。
- 
+pdoオブジェクト
+pdoを使ってデータベースへの接続を確立し、その接続を管理する PDO オブジェクトを返します。この PDO オブジェクトを使って SQL クエリを実行したり、データベースとやり取りを行うことができる
 
 ### `try catch`とは何か説明してください。
-
+例外処理という処理を実装する際に使用
+例外というのは状況次第で発生する可能性があるエラー
 
 ### Pdoクラスをインスタンス化する際に`try catch`が必要な理由を説明してください。
-
+データベース接続中にエラーが発生する可能性があるため
+ネットワーク接続エラー
+ユーザー名などの情報が間違えてるとき
 
 ## 新規作成
 
 ### `createTodoData($post)`は何をしているか説明してください。
+POST されたタスク内容（$post['content']）を受け取り、それをデータベースの todos テーブルに新しい行として挿入する処理を行う関数
 
 ## 一覧
 
 ### `getTodoList()`の返り値について説明してください。
-
+getTodoListをindex.php 内で呼び出して、TODOデータの一覧表示を行う
 
 ### `<?= ?>`は何の省略形か説明してください。
+echoの省略形
+<?php echo ; ?>
 
 ## 更新
 
