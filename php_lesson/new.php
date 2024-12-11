@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -14,3 +14,5 @@
   </div>
 </body>
 </html>
+<!-- ユーザーが入力した内容を store.php に送信し、
+ 別のページ（index.php）に戻るための基本的な構成 -->
