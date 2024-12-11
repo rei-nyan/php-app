@@ -1,7 +1,9 @@
-<?php
-require_once('config.php');
+<!--ToDoリストのデータをデータベースに保存したり、
+取得したり、更新したりする -->
 
-// PDOクラスのインスタンス化
+<?php
+
+require_once('config.php');
 function connectPdo()
 {
     try {
@@ -10,6 +12,8 @@ function connectPdo()
         echo $e->getMessage();
         exit();
     }
+// throw文はcatch句でその例外を処理
+// PDOクラス調べる
 }
 function createTodoData($todoText)
 {
@@ -17,10 +21,37 @@ function createTodoData($todoText)
     $sql = 'INSERT INTO todos (content) VALUES ("' . $todoText . '")';
     $dbh->query($sql);
 }
+//content カラムに $todoText の値を格納する
+
 function getAllRecords()
 {
     $dbh = connectPdo();
     $sql = 'SELECT * FROM todos WHERE deleted_at IS NULL';
     return $dbh->query($sql)->fetchAll();
+}
+function updateTodoData($post)
+{
+    $dbh = connectPdo();
+    $sql = 'UPDATE todos SET content = "' . $post['content'] . '" WHERE id = ' . $post['id'];
+    $dbh->query($sql);
+}
+
+function getTodoTextById($id)
+{
+    $dbh = connectPdo();
+    $sql = 'SELECT * FROM todos WHERE deleted_at IS NULL AND id = ' .$id ;
+    $data = $dbh->query($sql)->fetch();
+    return $data['content'];
+}
+function deleteTodoData($id)
+{
+    $dbh = connectPdo();
+    $now = date('Y-m-d H:i:s');
+    $sql = "UPDATE todos SET deleted_at=:now WHERE id = :id";
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':now', $now);
+    $stmt->bindParam(':id',$id);
+    $stmt->execute();
+
 }
 ?>
